@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Простая гонка</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Левая колонка: сама игра -->
+    <main class="game-main">
+      <h1>Простая гонка</h1>
+
+      <!-- Информация на экране -->
+      <div class="panel">
+        <span>Дистанция: <b id="distance">0</b> м</span>
+        <span>Скорость: <b id="speed">0</b> км/ч</span>
+        <span>Очки: <b id="score">0</b></span>
+        <span>Рекорд: <b id="best">0</b></span>
+      </div>
+
+      <!-- Игровое поле. Рисуем всё на canvas с помощью JavaScript -->
+      <div class="canvas-wrap">
+        <canvas id="game" width="400" height="600"></canvas>
+
+        <!-- Окно появляется в начале и после проигрыша -->
+        <div id="overlay" class="overlay">
+          <h2 id="overlay-title">Готовы поехать?</h2>
+          <p id="overlay-text">
+            Управляйте стрелками или WASD.<br>
+            Объезжайте другие машины!
+          </p>
+          <button id="start-button">Начать гонку</button>
+        </div>
+      </div>
+
+      <p class="hint">
+        Управление: ← → или A / D — поворот, ↑ / W — газ, ↓ / S — тормоз.<br>
+        Очки: 1 за каждые 10 метров и 50 за каждый обгон.
+      </p>
+    </main>
+
+    <!-- Правая колонка: вход и результаты из базы данных -->
+    <aside class="game-side">
+      <section class="auth-card">
+        <h2>Вход и регистрация</h2>
+
+        <form id="auth-form">
+          <input id="login" type="text" placeholder="Логин" autocomplete="username" required>
+          <input id="password" type="password" placeholder="Пароль" autocomplete="current-password" required>
+          <div class="auth-buttons">
+            <button type="button" id="register-button" class="secondary">Регистрация</button>
+            <button type="submit">Войти</button>
+          </div>
+        </form>
+
+        <div id="user-info" hidden>
+          <p>Вы вошли как <b id="user-name"></b></p>
+          <p class="small">Гонок: <b id="races">0</b> · Рекорд: <b id="user-best">0</b></p>
+          <button type="button" id="logout-button" class="secondary">Выйти</button>
+        </div>
+
+        <p id="auth-status" class="status"></p>
+      </section>
+
+      <section class="results">
+        <h2>Лучшие результаты</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Игрок</th>
+              <th>Очки</th>
+              <th>Дистанция</th>
+              <th>Обгоны</th>
+            </tr>
+          </thead>
+          <tbody id="results-body">
+            <tr><td colspan="5">Загрузка результатов...</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Таблица хранится в базе данных на сервере.</p>
+      </section>
+    </aside>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

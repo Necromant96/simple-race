@@ -1,0 +1,264 @@
+/* =========================================================
+   Стили страницы с игрой.
+  _game-width_ зависит от высоты экрана: на ноутбуке игра
+   становится крупнее, но не вылезает за окно браузера.
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #1d2b36;
+  color: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  --game-width: min(100%, calc(86vh * 2 / 3), 600px);
+
+  width: min(1180px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 28px;
+  align-items: start;
+}
+
+.game-main {
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(24px, 3vw, 34px);
+}
+
+h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+/* Верхняя панель со счётом */
+.panel {
+  width: var(--game-width);
+  margin: 0 auto 10px;
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 12px;
+  background: #273b49;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.panel b {
+  color: #ffd166;
+}
+
+/* Обёртка нужна, чтобы наложить окно поверх canvas */
+.canvas-wrap {
+  position: relative;
+  width: var(--game-width);
+  margin: 0 auto;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  background: #4a9d5f;
+  border: 4px solid #e9e9e9;
+  border-radius: 8px;
+}
+
+/* Окно «Начать гонку» / «Игра окончена» */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 8px;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay h2 {
+  margin: 0;
+  font-size: clamp(20px, 3vw, 28px);
+}
+
+.overlay p {
+  margin: 0;
+  line-height: 1.6;
+  text-align: center;
+}
+
+button {
+  padding: 11px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #1d2b36;
+  background: #ffd166;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ffdc85;
+}
+
+button.secondary {
+  color: #f5f5f5;
+  background: #3b5566;
+}
+
+button.secondary:hover {
+  background: #48687c;
+}
+
+.hint {
+  width: var(--game-width);
+  margin: 12px auto 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #b8c6d0;
+}
+
+/* --- Правая колонка --- */
+
+.auth-card,
+.results {
+  padding: 16px;
+  background: #273b49;
+  border-radius: 8px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  color: #f5f5f5;
+  background: #1d2b36;
+  border: 1px solid #3b5566;
+  border-radius: 6px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.auth-buttons button {
+  flex: 1;
+  padding: 10px 8px;
+  font-size: 14px;
+}
+
+.auth-card p {
+  margin: 10px 0 0;
+  font-size: 14px;
+}
+
+.small {
+  color: #b8c6d0;
+  font-size: 12px !important;
+}
+
+.status {
+  min-height: 18px;
+  color: #ffd166 !important;
+}
+
+.results {
+  margin-top: 16px;
+}
+
+.results table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.results th,
+.results td {
+  padding: 7px 6px;
+  text-align: center;
+  border-bottom: 1px solid #3b5566;
+}
+
+.results th {
+  color: #ffd166;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.results tr:last-child td {
+  border-bottom: none;
+}
+
+.results .small {
+  margin-top: 10px;
+}
+
+/* --- Адаптивность для узких экранов --- */
+
+@media (max-width: 900px) {
+  .app {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .game-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .results {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  .app {
+    --game-width: min(100%, calc(70vh * 2 / 3));
+  }
+
+  .game-side {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    font-size: 13px;
+  }
+}

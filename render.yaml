@@ -1,0 +1,13 @@
+# Конфиг для бесплатного хостинга Render
+# Создайте аккаунт → New + → Blueprint → выберите этот репозиторий.
+services:
+  - type: web
+    name: simple-race
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "24"

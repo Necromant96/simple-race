@@ -1,0 +1,13 @@
+{
+  "name": "simple-race",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Простая игра-гонка с регистрацией и таблицей результатов",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
